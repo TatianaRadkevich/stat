@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="jquery-3.1.1.min.js"></script>
+    <script src="Chart.bundle-1.17.js"></script>
+
+    <style>
+        canvas {
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+</head>
+<body>
+<div style="width: 75%">
+<canvas id="popChart"></canvas>
+</div>
+<script>
+    var popCanvas = $("#popChart");
+
+    var barChart = new Chart(popCanvas, {
+        type: 'line',
+        data: {
+            labels: ["январь", "февраль", "март", "апрель", "май", "июнь", "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"],
+            datasets: [{
+                label: 'Объем в первый год',
+                data: [65, -40, 45, 37, 75, 32, 54, 44, 23, 54, 34, 10],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                //lineTension: 0, //- круглая/острая
+                //borderDash: [5, 5], //- тип линии
+                //pointBorderColor: 'orange', //- цвет точек
+                pointBackgroundColor: 'rgba(255, 99, 132, 0.6)', // так закрасится и сама точка, и во всплывающем окне
+                //pointRadius: 5, //размер точки
+                //pointHoverRadius: 10, //размер точки при наведении
+                //pointHitRadius: 30,
+                //pointBorderWidth: 2,
+                //pointStyle: 'rectRounded'
+            }, {
+                label: 'Объём во второй год',
+                data: [83, 36, -92, 57, 24, 74, 44, 66, 84, 97, 47, 18],
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.6)'
+                ],
+                pointBackgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }, {
+                label: 'Объём в третий год',
+                data: [37, -47, 56, 35, 74, 69, 43, 46, 35, 41, 50, 40],
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)'
+                ],
+                pointBackgroundColor: 'rgba(75, 192, 192, 0.6)'
+            }]
+        }
+        /*,
+        options: {
+            tooltips: {
+                cornerRadius: 0,
+                caretSize: 0,
+                xPadding: 16,
+                yPadding: 10,
+                backgroundColor: 'rgba(0, 150, 100, 0.9)',
+                titleFontStyle: 'normal',
+                titleMarginBottom: 15
+            }
+        }*/
+    });
+
+    var speedData = {
+        labels: ["0s", "10s", "20s", "30s", "40s", "50s", "60s"],
+        datasets: [{
+            label: "Car Speed",
+            data: [0, 59, 75, 20, 20, 55, 40],
+            lineTension: 0,
+            fill: false,
+            borderColor: 'orange',
+            backgroundColor: 'transparent',
+            borderDash: [5, 5],
+            pointBorderColor: 'orange',
+            pointBackgroundColor: 'rgba(255,150,0,0.5)',
+            pointRadius: 5,
+            pointHoverRadius: 10,
+            pointHitRadius: 30,
+            pointBorderWidth: 2,
+            pointStyle: 'rectRounded'
+        }]
+    };
+
+    $("#popChart").click(function (evt) {
+        var activePoints = barChart.getElementAtEvent(evt);
+            var firstPoint = activePoints[0];
+            var label = barChart.data.labels[firstPoint._index];
+            var value = barChart.data.datasets[firstPoint._datasetIndex].data[firstPoint._index];
+            alert(label + ": " + value);
+    });
+    /*Chart.defaults.global.defaultFontFamily = "Lato";
+    Chart.defaults.global.defaultFontSize = 18;
+    Chart.defaults.global.defaultFontColor = 'blue';*/
+</script>
+</body>
+</html>
